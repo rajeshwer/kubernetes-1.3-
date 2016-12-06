@@ -2,11 +2,18 @@
 ### Deploying coreos on bare metal
 
 Installing to disk
+
 This Readme shows how to install to disk.
+
 Boot the bare metal from any Linux liveCD (centos is bit faster )
+
 Create DHCP server which automatically provides an Internet Protocol (IP) host with its IP address and other related configuration information such as the subnet mask and default gateway.
+
 Create a script to download and install coreos . Can be run from any Linux distribution
-copy the contents of link `https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install` 
+copy the contents of link 
+
+`https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install` 
+
 and paste it  in your local for eg: /tmp/ since you are using live cd you dont have storage.
 
 The above created script will ONLY work IF you use a liveCD that contains ‘coreos-cloudinit’
@@ -24,7 +31,7 @@ cd coreos-cloudinit-master/
 cd bin 
 ```
  
- Copy those binaries into your bare metal server
+Copy those binaries into your bare metal server.
 Empty disk is needed on bare metal to install coreos 
 Coreos cannot be booted on same device that is currently booted
 
