@@ -337,3 +337,48 @@ kubectl get nodes
 NAME          LABELS                               STATUS
 X.X.X.X       kubernetes.io/hostname=X.X.X.X       Ready
 ```
+
+
+Now that you have a Ceph cluster and kubernetes up and running 
+
+You can follow the following steps to mount the docker containers with the ceph storage pool
+
+Map Rbd Kernel Without Install Ceph-common
+
+It is not mandatory to install Ceph binaries (especially ceph-common) to be able to map a Rbd blocdevice you can also use the kernel path /sys/bus/rbd provided by rbd module.
+
+``` 
+modprobe rbd
+echo "<ip's of Ceph cluster sperated by comma> name=admin,secret=AQBG5SlSmLELKBAA6sKvuJyRWUmFl2R5E1ukTw== rbd testrbd" > /sys/bus/rbd/add
+```
+First, we clone Kubernetes repository to get some handy file examples:
+
+```
+git clone https://github.com/kubernetes/kubernetes.git
+cd kubernetes/kubernetes/examples/volumes/rbd
+```
+In the secrect Directory edit the ceph-secret.yaml 
+
+Add your secret key base 64 encoded
+
+now deploy your ceph-secret.yaml
+
+```
+kubectl create -f ceph-secret.yaml
+```
+check the status 
+```
+kubectl get secret
+```
+Now edit the rbd.json add your ceph cluster details and add your docker image 
+
+And deploy 
+```
+kubectl create -f rbd.json
+```
+Check the status 
+```
+kubectl get pods
+kubectl describe pods
+kubectl describe events|grep <pod name>
+```
