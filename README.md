@@ -111,10 +111,11 @@ IP.3 = <master private IP>
 
 Now use the configuration file to generate the API server keys
 
+```
 openssl genrsa -out apiserver-key.pem 2048
 openssl req -new -key apiserver-key.pem -out apiserver.csr -subj "/CN=kube-apiserver" -config openssl.cnf
 openssl x509 -req -in apiserver.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out apiserver.pem -days 365 -extensions v3_req -extfile openssl.cnf
-
+```
 Now create a configuration file for Worker nodes
 
 vi worker-openssl.cnf
