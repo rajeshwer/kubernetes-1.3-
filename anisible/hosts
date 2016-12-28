@@ -1,0 +1,11 @@
+[master]
+
+[workers]
+
+[master:vars]
+ansible_ssh_user=core
+ansible_python_interpreter="/opt/bin/python"
+
+[workers:vars]
+ansible_ssh_user=core
+ansible_python_interpreter="/opt/bin/python"

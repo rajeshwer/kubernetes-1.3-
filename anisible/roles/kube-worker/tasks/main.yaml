@@ -1,0 +1,20 @@
+---
+    - file: path=/etc/kubernetes/ssl state=directory
+    - file: path=/etc/flannel state=directory
+    - file: path=/etc/systemd/system/flanneld.service.d state=directory
+    - file: path=/etc/systemd/system/docker.service.d state=directory
+    - file: path=/etc/kubernetes/manifests state=directory
+    - name: copy ssl certs
+      copy: src=/Users/rajeshwerrao/kubrnetes/core/certs/ dest=/etc/kubernetes/ssl
+    - name: install options.env
+      template: src=options.env dest=/etc/flannel
+    - name: install 40-ExecStartPre-symlink.conf
+      copy: src=40-ExecStartPre-symlink.conf dest=/etc/systemd/system/flanneld.service.d/
+    - name: install 40-flannel.conf
+      copy: src=40-flannel.conf dest=/etc/systemd/system/docker.service.d/
+    - name: create kubelet unit
+      template: src=kubelet.service dest=/etc/systemd/system/
+    - name: create kube proxy
+      template: src=kube-proxy.yaml dest=/etc/kubernetes/manifests/
+    - name: create kubeconfig
+      template: src=worker-kubeconfig.yaml dest=/etc/kubernetes/
