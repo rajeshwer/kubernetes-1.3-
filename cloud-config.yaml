@@ -1,11 +1,11 @@
 #cloud-config
 ---
-hostname: coreos01.qctlab.com
+hostname: coreos01.example.com
 users:
   - name: core
     passwd: $1$XKEsgewj$bI4DrN1Ty45JLjsk35fX7. 
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCg9m+luOlxjx7c2bDnKxfE92sAV6TiiW1WraWbOQNnU4e+5Bb0QU1PKtPkV4KRwKlu0Tq5rj8bUncEf5Cw1+VjzTrgAmoJRk993BdO+2We7enR3cALFo97i0gI/tun8knCJ3AVpU6QvM86kTLrdkOBkCR5esJMaadW9CG0IONlUm8ayBCl35yAxgx43qBYLP9LVnaE9tV4GYNS6j2WxqwbvVt4NhegQhjGiQ0Hjh46cshx3MkxTOR4GKQ2YeJxtwtOVY9oPisCALPsi9K7Hazy87B3AT9pjzxMrLgGl5k1qeD9RUSEAdQcp83zByPzzUAcwZ5/zIeadeh+ZOnS6dMF rajeshwerrao@rajeshwerraos-MacBook-Air.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCg9m+luOlxjx7c2bDnKxfE92sAV6TiiW1WraWbOQNnU4e+5Bb0QU1PKtPkV4KRwKlu0Tq5rj8bUncEf5Cw1+VjzTrgAmoJRk993BdO+2We7enR3cALFo97i0gI/tun8knCJ3AVpU6QvM86kTLrdkOBkCR5esJMaadW9CG0IONlUm8ayBCl35yAxgx43qBYLP9LVnaE9tV4GYNS6j2WxqwbvVt4NhegQhjGiQ0Hjh46cshx3MkxTOR4GKQ2YeJxtwtOVY9oPisCALPsi9K7Hazy87B3AT9pjzxMrLgGl5k1qeD9RUSEAdQcp83zByPzzUAcwZ5/zIeadeh+ZOnS6dMF xxx-MacBook-Air.local
     groups:
       - sudo
     shell: /bin/bash
@@ -14,18 +14,18 @@ write_files:
     permissions: "0644"
     owner: "root"
     content: |
-      Welcome to QCT LAB, everyone!      
+      Welcome to MY LAB, everyone!      
 coreos:
   etcd2:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new:
     discovery: https://discovery.etcd.io/4742e64298ac2a4c0373e3c4a3831d78
     # multi-region deployments, multi-cloud deployments, and Droplets without
     # private networking need to use $public_ipv4:
-    advertise-client-urls: http://10.10.191.15:2379,http://10.10.191.15:4001
-    initial-advertise-peer-urls: http://10.10.191.15:2380
+    advertise-client-urls: http://x.x.x.x:2379,http://x.x.x.x:4001
+    initial-advertise-peer-urls: http://x.x.x.x:2380
     # listen on the official ports 2379, 2380 and one legacy port 4001:
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
-    listen-peer-urls: http://10.10.191.15:2380
+    listen-peer-urls: http://x.x.x.x:2380
   fleet:
     public-ip: $private_ipv4   # used for fleetctl ssh command
   units:
@@ -41,8 +41,8 @@ coreos:
 
         [Network]
         DNS=8.8.8.8
-        Address=10.10.191.15/24
-        Gateway=10.10.191.1
+        Address="x.x.x.x/24"
+        Gateway=x.x.x.1
         DHCP=no
     - name: down-interfaces.service
       command: start
